@@ -1,143 +1,202 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-	<meta charset="UTF-8">
-	<title>注册Office 365子账号</title>
-	<link rel="stylesheet" href="jquery-easyui-1.9.14/themes/default/easyui.css" />
-	<link rel="stylesheet" href="jquery-easyui-1.9.14/themes/icon.css" />
-	<script type="text/javascript" src="jquery-easyui-1.9.14/jquery.min.js"></script>
-	<script type="text/javascript" src="jquery-easyui-1.9.14/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="jquery-easyui-1.9.14/locale/easyui-lang-zh_CN.js"></script>
-	<script type='text/javascript' src='bug-min.js'></script>
-	<style type="text/css">
-		body{
-			background-image:url('edu.jpg');
-			background-repeat: no-repeat;
-			background-attachment: fixed;
-			background-position: 100% 50%;
-			width : 100%;
-			margin: 0 auto;
-		}
-		table{
-		    margin: auto;
-		}
-	</style>
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
-	<style type="text/css"> 
-		@media(max-width:960px){
-			body {
-				width:100%;
-				background-image:url('edu.jpg');
-				background-repeat: no-repeat;
-				background-attachment: fixed;
-			} 
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>注册 Office 365 子账号</title>
+    <script type="text/javascript" src="jquery-easyui-1.9.14/jquery.min.js"></script>
+    
+    <style>
+        :root { 
+            --brand-red: #F25022; --brand-green: #7FBA00; --brand-blue: #00A4EF; --brand-yellow: #FFB900; 
+            --theme-primary: #0067b8; --theme-success: #107c10; --theme-error: #d83b01;
+            --radius-card: 24px; --radius-input: 12px;
+            --ease-damping: cubic-bezier(0.5, 0, 0.1, 1);
+            --ease-fluent: cubic-bezier(0.1, 0.9, 0.2, 1);
+        }
+
+        *, *::after, *::before { box-sizing: border-box; outline: none !important; }
+
+        body {
+            margin: 0; min-height: 100dvh; display: flex; justify-content: center; align-items: center;
+            background-color: #f0f2f5;
+            background-image: radial-gradient(at 0% 0%, rgba(0, 164, 239, 0.08) 0px, transparent 50%), 
+                              radial-gradient(at 100% 100%, rgba(242, 80, 34, 0.05) 0px, transparent 50%);
+            font-family: "Segoe UI Variable Display", "Segoe UI", sans-serif;
+            overflow-x: hidden; padding: 20px;
+        }
+
+        .app-shell {
+            width: 100%; max-width: 440px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.7);
+            border-radius: var(--radius-card);
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.08);
+            padding: 48px 40px; 
+            animation: shell-entrance 0.8s var(--ease-fluent);
+        }
+        @keyframes shell-entrance { from { opacity: 0; transform: translateY(40px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+        /* Logo 阻尼动画 */
+        .logo-trigger { width: 52px; height: 52px; margin: 0 auto 24px; position: relative; }
+        .rotator { width: 100%; height: 100%; animation: damping-spin 12s infinite; }
+        @keyframes damping-spin {
+            0% { transform: rotate(0deg); animation-timing-function: var(--ease-damping); }
+            70% { transform: rotate(2160deg); }
+            100% { transform: rotate(2160deg); }
+        }
+        .logo-grid { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; animation: damping-gap 12s infinite; }
+        @keyframes damping-gap { 0%, 70%, 100% { gap: 4px; animation-timing-function: var(--ease-damping); } 12%, 58% { gap: 12px; } }
+        .tile { width: 100%; height: 100%; border-radius: 0px; animation: damping-morph 12s infinite; }
+        @keyframes damping-morph { 0%, 70%, 100% { border-radius: 0px; transform: scale(1); animation-timing-function: var(--ease-damping); } 12%, 58% { border-radius: 50%; transform: scale(0.85); } }
+        .t-r { background: var(--brand-red); } .t-g { background: var(--brand-green); } .t-b { background: var(--brand-blue); } .t-y { background: var(--brand-yellow); }
+
+        .title { text-align: center; font-size: 24px; font-weight: 600; color: #242424; margin-bottom: 32px; }
+
+        .form-row { margin-bottom: 20px; }
+        .label { display: block; font-size: 11px; font-weight: 700; color: #616161; margin-bottom: 8px; text-transform: uppercase; margin-left: 4px; }
+        
+        .input-box {
+            width: 100%; height: 56px;
+            background: #f7f7f7; border: 1px solid #e1dfdd;
+            border-radius: var(--radius-input); padding: 0 16px;
+            display: flex; align-items: center; transition: all 0.2s var(--ease-fluent);
+        }
+        .input-box:focus-within {
+            background: #ffffff; border-color: var(--theme-primary);
+            box-shadow: 0 4px 12px rgba(0, 103, 184, 0.1); transform: translateY(-1px);
+        }
+        input {
+            flex: 1; width: 100%; border: none; background: transparent;
+            font-size: 15px; font-weight: 600; color: #242424;
+        }
+
+        .btn-submit {
+            width: 100%; height: 58px; margin-top: 12px;
+            background: var(--theme-primary);
+            color: #fff; border: none; border-radius: var(--radius-input);
+            font-size: 16px; font-weight: 600; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 103, 184, 0.15);
+            transition: all 0.3s var(--ease-fluent);
+        }
+        .btn-submit:hover { transform: translateY(-2px); background: #005a9e; }
+
+        /* 重点：还原并美化原版的红色提示语 */
+        #refertips { 
+            margin-top: 20px; 
+            font-size: 12px; 
+            line-height: 1.6; 
+            text-align: left; 
+            color: var(--theme-error); /* 默认红色 */
+            background: rgba(216, 59, 1, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
-	<div id="dlg8" class="easyui-dialog" title="注册Office 365子账号" style="width: 360px; height: 285px; padding: 10px">
-		<div style="margin-bottom:15px">
-			<input id="displayName" class="easyui-textbox" style="width:100%" data-options="prompt:'请输入名字 ，可以是字母数字或中文',iconCls:'icon-man'">
-		</div>
-		<div style="margin-bottom:15px">
-			<input id="mailNickname"  class="easyui-textbox" style="width:100%" data-options="prompt:'请输入邮箱前缀，只能是字母或者数字',iconCls:'icon-mail16'">
-		</div>
-		<div style="margin-bottom:10px">
-			<input id="inviteCd"  class="easyui-textbox" style="width:100%" data-options="prompt:'请输入邀请码',iconCls:'icon-promo16'">
-		</div>
-		
-		<div style="width:100%;font-size: 12" id="refertips" >请输入名字，邮箱前缀和邀请码之后点击注册，请勿刷新或者重复点击注册，否则可能会导致邀请码失效</div>
-	</div>
 
-	<script>
-		new BugController({'minBugs':1, 'maxBugs':1, 'mouseOver':'fly'});
-		$('#dlg8').dialog({
-		    cache: false,
-			iconCls: 'icon-check',
-			resizable: false,
-			closable: false,
-		    modal: true,
-			buttons: [{
-				text:'注册',
-				iconCls:'icon-ok',
-				handler:function(){
-					submitForm();
-				}
-			},{
-				text:'重置',
-				handler: function(){
-					clearForm();
-				}
-			}]
-		});
-	
-		function submitForm(){
-			var displayName = $('#displayName').textbox('getText');
-			var mailNickname = $('#mailNickname').textbox('getText');
-			var inviteCd = $('#inviteCd').textbox('getText');
-			var password = passwordGen();
-			
-			
-			if(displayName!=''&&mailNickname!=''&&inviteCd!=''){
-				$.ajax({
-					type : "POST",
-					url : "/createUserByInviteCd",
-					data : {
-						"displayName" : displayName,
-						"mailNickname" : mailNickname,
-						"inviteCd" : inviteCd,
-						"password": password
-					},
-					async : false,
-					success : function(result) {
-						var strs = result.split("|");
-						if(strs[0]=="0"){
-							var userPrincipalName = strs[1];
-							$.messager.alert('请求成功', "<div><font color='green'>账号已创建，请登录<a href='https://www.office.com' target='_blank'>office.com</a>重置密码后进行使用<br>邮箱："+userPrincipalName+"<br>密码："+password+"</font></div>" ,'');							
-							$('#refertips').html("<div><font color='green'>账号已创建，请登录<a href='https://www.office.com' target='_blank'>office.com</a>重置密码后进行使用<br>邮箱："+userPrincipalName+"<br>密码："+password+"</font></div>");
-							flag = true;
-						}
-						else{
-							$('#refertips').html("<div><font color='red'>"+result+"</font></div>");
-						}
-					},
-					error : function(){
-						$('#refertips').html("<div><font color='red'>服务器内部错误</font></div>");
-					}
-				});
-			}
-			else{
-				$('#refertips').html("<div><font color='red'>必填项不能为空</font></div>");
-			}
-		}
-		function clearForm(){
-			$('#displayName').textbox('setText','');
-			$('#mailNickname').textbox('setText','');
-			$('#inviteCd').textbox('setText','');
-			$('#refertips').text('请输入名字，邮箱前缀和邀请码之后点击注册，请勿刷新或者重复点击注册，否则可能会导致邀请码失效');
-		}
-		function passwordGen() {
-		    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-		    var string_length = 8;
-		    var randomstring = '';
-		    var charCount = 0;
-		    var numCount = 0;
+    <div class="app-shell">
+        <div class="logo-trigger">
+            <div class="rotator">
+                <div class="logo-grid">
+                    <div class="tile t-r"></div><div class="tile t-g"></div>
+                    <div class="tile t-b"></div><div class="tile t-y"></div>
+                </div>
+            </div>
+        </div>
+        <div class="title">注册子账号</div>
 
-		    for (var i = 0; i < string_length; i++) {
-		        // If random bit is 0, there are less than 3 digits already saved, and there are not already 5 characters saved, generate a numeric value. 
-		        if ((Math.floor(Math.random() * 2) == 0) && numCount < 3 || charCount >= 5) {
-		            var rnum = Math.floor(Math.random() * 10);
-		            randomstring += rnum;
-		            numCount += 1;
-		        } else {
-		            // If any of the above criteria fail, go ahead and generate an alpha character from the chars string
-		            var rnum = Math.floor(Math.random() * chars.length);
-		            randomstring += chars.substring(rnum, rnum + 1);
-		            charCount += 1;
-		        }
-		    }
-		    return randomstring;
-		}
-	</script>
+        <div class="form-row">
+            <label class="label">Display Name</label>
+            <div class="input-box">
+                <input type="text" id="displayName" placeholder="e.g. 刘宏鹏">
+            </div>
+        </div>
 
+        <div class="form-row">
+            <label class="label">Mail Nickname</label>
+            <div class="input-box">
+                <input type="text" id="mailNickname" placeholder="只能是字母或数字">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label class="label">Invite Code</label>
+            <div class="input-box">
+                <input type="text" id="inviteCd" placeholder="请输入邀请码">
+            </div>
+        </div>
+
+        <button class="btn-submit" onclick="submitForm()">立即注册</button>
+        
+        <div id="refertips">
+            请输入名字，邮箱前缀和邀请码之后点击注册，请勿刷新或者重复点击注册，否则可能会导致邀请码失效
+        </div>
+    </div>
+
+    <script>
+        function submitForm(){
+            var displayName = $('#displayName').val();
+            var mailNickname = $('#mailNickname').val();
+            var inviteCd = $('#inviteCd').val();
+            var password = passwordGen(); // 调用原有密码算法
+            
+            if(displayName!='' && mailNickname!='' && inviteCd!=''){
+                $('#refertips').css('color', 'var(--theme-primary)').html("正在请求服务器，请稍候...");
+                $.ajax({
+                    type : "POST",
+                    url : "/createUserByInviteCd",
+                    data : {
+                        "displayName" : displayName,
+                        "mailNickname" : mailNickname,
+                        "inviteCd" : inviteCd,
+                        "password": password
+                    },
+                    success : function(result) {
+                        var strs = result.split("|");
+                        if(strs[0]=="0"){
+                            var userPrincipalName = strs[1];
+                            // 成功后的显示样式
+                            $('#refertips').css({'color': 'var(--theme-success)', 'background': 'rgba(16, 124, 16, 0.05)'}).html(
+                                "<div style='font-weight:600'>账号创建成功！</div>" +
+                                "<div style='margin-top:8px'>账号：" + userPrincipalName + "</div>" +
+                                "<div>密码：" + password + "</div>" +
+                                "<div style='margin-top:8px; font-size:11px'>请登录 office.com 重置密码使用</div>"
+                            );
+                        } else {
+                            $('#refertips').css('color', 'var(--theme-error)').html(result);
+                        }
+                    },
+                    error : function(){
+                        $('#refertips').css('color', 'var(--theme-error)').html("服务器内部错误");
+                    }
+                });
+            } else {
+                $('#refertips').css('color', 'var(--theme-error)').html("必填项不能为空");
+            }
+        }
+
+        // 原版随机密码生成算法
+        function passwordGen() {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+            var string_length = 8;
+            var randomstring = '';
+            var charCount = 0, numCount = 0;
+            for (var i = 0; i < string_length; i++) {
+                if ((Math.floor(Math.random() * 2) == 0) && numCount < 3 || charCount >= 5) {
+                    randomstring += Math.floor(Math.random() * 10);
+                    numCount += 1;
+                } else {
+                    var rnum = Math.floor(Math.random() * chars.length);
+                    randomstring += chars.substring(rnum, rnum + 1);
+                    charCount += 1;
+                }
+            }
+            return randomstring;
+        }
+    </script>
 </body>
 </html>
