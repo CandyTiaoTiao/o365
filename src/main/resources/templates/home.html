@@ -1,9 +1,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>O365管理系统</title>
+	<title>TUV Management Console</title>
 	<link rel="stylesheet" id="easyuiTheme" href="jquery-easyui-1.9.14/themes/default/easyui.css" />
 	<link rel="stylesheet" href="jquery-easyui-1.9.14/themes/icon.css" />
+    <style>
+        /* 注入 Knowhere 阻尼 Logo 动效 */
+        .pro-logo-container {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .pro-logo-container img {
+            height: 40px;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+        .pro-logo-container img:hover {
+            transform: scale(1.15) rotate(7deg);
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.5));
+        }
+    </style>
 	<script type="text/javascript" src="jquery-easyui-1.9.14/jquery.min.js" th:inline="none"></script>
 	<script type="text/javascript" src="jquery-easyui-1.9.14/jquery.easyui.min.js" th:inline="none"></script>
 	<script type="text/javascript" src="jquery-easyui-1.9.14/locale/easyui-lang-zh_CN.js" th:inline="none"></script>
@@ -11,47 +28,50 @@
 	<script type='text/javascript' src='changeEasyuiTheme.js'></script>
 </head>
 <body class="easyui-layout" data-options="fit:true">
-<a id="follow" href="https://github.com/vanyouseea/o365"><img width="128" height="128" src="/forkme2.png" alt="Fork me on GitHub" data-recalc-dims="1" style="position: absolute; top: 0;z-index: 999999;right: 0"></a>
-	<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;">
-		<h3><img src="logo.svg" /></h3> 
+    <div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;">
+		<div class="pro-logo-container">
+            <img src="logo.svg" onclick="location.reload()" />
+            <h3 style="margin-left: 15px; color: #333;">O365管理系统</h3>
+        </div>
 	</div>
 	<div data-options="region:'west',split:true,title:'管理'" style="width:260px;padding:2px;">
 		<div id="aa" class="easyui-accordion" style="width:100%;height:220px;">
-		    <div title="用户"  style="overflow:auto">
-		    	<ul class="easyui-tree">
+		    <div title="用户"  style="overflow:auto">
+		    	<ul class="easyui-tree">
 					<li><div onclick="addPanel('管理用户')">管理用户</div></li>
 					<li><div onclick="addPanel('查看特权用户')">查看特权用户</div></li>
-					<li><div onclick="addPanel('邀请注册')">邀请注册</div></li>
+					<li><div onclick="addPanel('邀请注册')">邀请注册']邀请注册</div></li>
 				</ul>
-		    </div>
-		    <div title="许可证"  style="overflow:auto">
-		    	<ul class="easyui-tree">
+		    </div>
+		    <div title="许可证"  style="overflow:auto">
+		    	<ul class="easyui-tree">
 					<li><div onclick="addPanel('查看许可证')">查看许可证</div></li>
 				</ul>
-		    </div>
-		    <div title="配置和报告" style="overflow:auto">
-		    	<ul class="easyui-tree">
+		    </div>
+		    <div title="配置和报告" style="overflow:auto">
+		    	<ul class="easyui-tree">
 					<li><div onclick="addPanel('Office配置')">Office配置</div></li>
 					<li><div onclick="addPanel('Office总览报告')">Office总览报告</div></li>
 					<li><div onclick="addPanel('系统配置')">系统配置</div></li>
 				</ul>
-		    </div>
+		    </div>
 		</div>
 	</div>
-	<div data-options="region:'south',border:false" style="height:25px;background:#A9FACD" ><div style="float:left">Powered by liuhongpeng - O365 <a href=javascript:showVersionInfo()>pro</a></div> 
+	<div data-options="region:'south',border:false" style="height:25px;background:#A9FACD" >
+        <div style="float:left">TUV Management Console | Created by liuhongpeng - O365 <a href="javascript:showVersionInfo()" style="text-decoration:none; font-weight:bold; color:#333;">PRO</a></div> 
 		<div style="float:right">主题选择 <select id="themeCb" class="easyui-combobox" style="width:120px;height:25px" data-options="editable:false,onChange: onchangeThemeFun" >
 					<option value="default">默认</option>
-				    <option value="gray">灰色</option>
-				    <option value="black">黑色</option>
-				    <option value="material-blue">原色</option>
-				    <option value="metro-blue">Metro蓝</option>
-				    <option value="metro-gray">Metro灰</option>
-				    <option value="metro-green">Metro绿</option>
-				    <option value="metro-orange">Metro橙</option>
-				    <option value="metro-red">Metro红</option>
-				    <option value="ui-cupertino">Cupertino</option>
-				    <option value="ui-pepper-grinder">PepperGrinder</option>
-				    <option value="ui-sunny">Sunny</option>
+				    <option value="gray">灰色</option>
+				    <option value="black">黑色</option>
+				    <option value="material-blue">原色</option>
+				    <option value="metro-blue">Metro蓝</option>
+				    <option value="metro-gray">Metro灰</option>
+				    <option value="metro-green">Metro绿</option>
+				    <option value="metro-orange">Metro橙</option>
+				    <option value="metro-red">Metro红</option>
+				    <option value="ui-cupertino">Cupertino</option>
+				    <option value="ui-pepper-grinder">PepperGrinder</option>
+				    <option value="ui-sunny">Sunny</option>
 				</select>
 				</div>
 	</div>
@@ -59,7 +79,7 @@
 		<div title="首页" style="padding:10px;overflow: move">
 			<h2>欢迎来到O365管理系统，你可以使用它来方便的管理多个Office全局</h2>
 			<ul style="font-size: 15px">
-				<li>如果你是<font color="red">首次使用</font>，请先前往[配置]-><a href=javascript:addPanel("Office配置")>Office配置</a>配置你的APP信息，如果你不知道如何创建APP，请参考<a href="https://github.com/vanyouseea/msautocreate" target="_blank" >GitHub</a></li>
+				<li>如果你是<font color="red">首次使用</font>，请先前往[配置]-><a href=javascript:addPanel("Office配置")>Office配置</a>配置你的APP信息，如果你不知道如何创建APP，请参考<a href="https://github.com/RynnovaCloud/o365" target="_blank" >GitHub</a></li>
 				<li>请确保APP开启以下API的<font color="red">应用程序</font>权限(缺少部分权限亦可使用，只是对应的功能无法执行成功)
 					<table style="font-size: 13px">
 						<tr>
@@ -102,7 +122,7 @@
 				</li>
 				<li>[用户]-><a href=javascript:addPanel("管理用户")>管理用户</a>页中，你可以批量添加(分配订阅)，删除，启用，禁用用户，搜索用户，绑定和解绑域名，你也可以提升一个用户为管理员或者撤销他的管理员权限</li>
 				<li>[用户]-><a href=javascript:addPanel("查看特权用户")>查看特权用户</a>页中，你可以查看身份是全局管理，用户管理，特权角色管理，特权认证管理的特殊用户</li>
-				<li>[用户]-><a href=javascript:addPanel("邀请注册")>邀请注册</a>页中，你可以生成邀请码，其他人可根据此邀请码通过<a href="/refer.html" target="_blank">此连接</a>注册Office用户，同时你也可以管理邀请码</li>
+				<li>[用户]-><a href=javascript:addPanel("邀请注册")>邀请注册</a>页中，你可以生成邀请码，其他人可根据此邀请码通过<a href="/reg" target="_blank">此连接</a>注册Office用户</li>
 				<li>[许可证]-><a href=javascript:addPanel("查看许可证")>查看许可证</a>页中，你可查看以当前全局的许可证信息</li>
 				<li>[配置和报告]-><a href=javascript:addPanel("Office配置")>Office配置</a>页中，你可以添加，修改，删除，切换全局，生成此全局的报告，更新APP密钥，验证APP有效性(<font color=red>不包含</font>权限的校验)</li>
 				<li>[配置和报告]-><a href=javascript:addPanel("Office总览报告")>Office总览报告</a>页中，你可以查看Office配置中全局管理员和SPO的可用性报告，同时你也可以选择一个全局下载其更为详细的Exchange和Onedrive使用报告</li>
@@ -112,12 +132,8 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript"  >
+	<script type="text/javascript"  >
 		new BugController({'minBugs':1, 'maxBugs':1, 'mouseOver':'fly'});
-		
-		if(window.screen.width<960){
-			$('#follow').css('display','none');
-		}
 		
 		function addPanel(name){
 			tab = $('#acc').tabs('getTab',name);
@@ -126,7 +142,6 @@
 					$('#acc').tabs('add',{
 						title: name,
 						href: 'tabs/user.html',
-						//content: '<div style="padding:10px">Content</div>',
 						closable: true
 					});
 				}
@@ -134,7 +149,6 @@
 					$('#acc').tabs('add',{
 						title: name,
 						href: 'tabs/license.html',
-						//content: '<div style="padding:10px">Content</div>',
 						closable: true
 					});
 				}
@@ -142,7 +156,6 @@
 					$('#acc').tabs('add',{
 						title: name,
 						href: 'tabs/invite.html',
-						//content: '<div style="padding:10px">Content</div>',
 						closable: true
 					});
 				}
@@ -150,7 +163,6 @@
 					$('#acc').tabs('add',{
 						title: name,
 						href: 'tabs/config.html',
-						//content: '<div style="padding:10px">Content</div>',
 						closable: true
 					});
 				}				
@@ -158,7 +170,6 @@
 					$('#acc').tabs('add',{
 						title: name,
 						href: 'tabs/system.html',
-						//content: '<div style="padding:10px">Content</div>',
 						closable: true
 					});
 				}
@@ -166,7 +177,6 @@
 					$('#acc').tabs('add',{
 						title: name,
 						href: 'tabs/privilegedUser.html',
-						//content: '<div style="padding:10px">Content</div>',
 						closable: true
 					});
 				}
@@ -174,7 +184,6 @@
 					$('#acc').tabs('add',{
 						title: name,
 						href: 'tabs/apprpt.html',
-						//content: '<div style="padding:10px">Content</div>',
 						closable: true
 					});
 				}
@@ -190,7 +199,7 @@
 		}
 		
 		function showVersionInfo(){
-			$.messager.alert('版本信息', '1. 修复了的搜索的问题<br>2. 修复了一些描述的问题<br>3. 支持站库分离(需要自行修改application.properties)' ,'');
+			$.messager.alert('PRO 特性', '1. 全面升级 Knowhere 视觉交互<br>2. 针对 GCP 环境优化内存占用<br>3. 移除冗余挂件，提升页面加载速度' ,'info');
 		}
 		
 	</script>
