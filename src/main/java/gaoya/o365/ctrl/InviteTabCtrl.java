@@ -1,4 +1,4 @@
-package hqr.o365.ctrl;
+package gaoya.o365.ctrl;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hqr.o365.domain.LicenseInfo;
-import hqr.o365.service.CreateOfficeUserByInviteCd;
-import hqr.o365.service.DeleteInviteInfo;
-import hqr.o365.service.ExportInvites;
-import hqr.o365.service.GetInviteInfo;
-import hqr.o365.service.GetLicenseInfo;
-import hqr.o365.service.MassCreateInviteCd;
+import gaoya.o365.domain.LicenseInfo;
+import gaoya.o365.service.CreateOfficeUserByInviteCd;
+import gaoya.o365.service.DeleteInviteInfo;
+import gaoya.o365.service.ExportInvites;
+import gaoya.o365.service.GetInviteInfo;
+import gaoya.o365.service.GetLicenseInfo;
+import gaoya.o365.service.MassCreateInviteCd;
 
 @Controller
 public class InviteTabCtrl {

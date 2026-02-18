@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,8 +11,8 @@ import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.stereotype.Service;
-import hqr.o365.dao.TaMasterCdRepo;
-import hqr.o365.domain.TaMasterCd;
+import gaoya.o365.dao.TaMasterCdRepo;
+import gaoya.o365.domain.TaMasterCd;
 
 @Service
 public class ResetSystemInfo {

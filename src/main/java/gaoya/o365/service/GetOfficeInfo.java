@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 
-import hqr.o365.dao.TaOfficeInfoRepo;
-import hqr.o365.domain.TaOfficeInfo;
+import gaoya.o365.dao.TaOfficeInfoRepo;
+import gaoya.o365.domain.TaOfficeInfo;
 
 @Service
 public class GetOfficeInfo {

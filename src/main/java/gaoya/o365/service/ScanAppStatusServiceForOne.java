@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -32,13 +32,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import cn.hutool.core.util.URLUtil;
-import hqr.o365.dao.TaAppRptRepo;
-import hqr.o365.dao.TaMasterCdRepo;
-import hqr.o365.dao.TaOfficeInfoRepo;
-import hqr.o365.domain.TaAppRpt;
-import hqr.o365.domain.TaMasterCd;
-import hqr.o365.domain.TaOfficeInfo;
-import hqr.o365.service.ValidateAppInfo;
+import gaoya.o365.dao.TaAppRptRepo;
+import gaoya.o365.dao.TaMasterCdRepo;
+import gaoya.o365.dao.TaOfficeInfoRepo;
+import gaoya.o365.domain.TaAppRpt;
+import gaoya.o365.domain.TaMasterCd;
+import gaoya.o365.domain.TaOfficeInfo;
+import gaoya.o365.service.ValidateAppInfo;
 
 @Service
 public class ScanAppStatusServiceForOne {

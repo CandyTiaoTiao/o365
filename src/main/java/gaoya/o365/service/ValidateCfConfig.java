@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.io.IOException;
 import java.security.cert.CertificateException;
@@ -29,8 +29,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import hqr.o365.dao.TaMasterCdRepo;
-import hqr.o365.domain.TaMasterCd;
+import gaoya.o365.dao.TaMasterCdRepo;
+import gaoya.o365.domain.TaMasterCd;
 
 @Service
 public class ValidateCfConfig {

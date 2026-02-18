@@ -8,7 +8,7 @@
 		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>hqr</groupId>
+	<groupId>gaoya</groupId>
 	<artifactId>o365</artifactId>
 	<version>1.9.0</version>
 	<name>o365</name>

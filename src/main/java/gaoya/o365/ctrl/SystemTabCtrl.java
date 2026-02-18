@@ -1,4 +1,4 @@
-package hqr.o365.ctrl;
+package gaoya.o365.ctrl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hqr.o365.service.DeleteSystemInfo;
-import hqr.o365.service.GetSystemInfo;
-import hqr.o365.service.ResetSystemInfo;
-import hqr.o365.service.UpdateSystemInfo;
+import gaoya.o365.service.DeleteSystemInfo;
+import gaoya.o365.service.GetSystemInfo;
+import gaoya.o365.service.ResetSystemInfo;
+import gaoya.o365.service.UpdateSystemInfo;
 
 @Controller
 public class SystemTabCtrl {

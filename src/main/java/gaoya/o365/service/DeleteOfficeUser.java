@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import hqr.o365.dao.TaOfficeInfoRepo;
-import hqr.o365.domain.TaOfficeInfo;
+import gaoya.o365.dao.TaOfficeInfoRepo;
+import gaoya.o365.domain.TaOfficeInfo;
 
 @Service
 public class DeleteOfficeUser {

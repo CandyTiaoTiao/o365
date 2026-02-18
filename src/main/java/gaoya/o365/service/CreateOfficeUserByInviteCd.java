@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.util.Date;
 import java.util.Optional;
@@ -16,11 +16,11 @@ import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 import com.alibaba.fastjson.JSON;
 
-import hqr.o365.dao.TaInviteInfoRepo;
-import hqr.o365.dao.TaOfficeInfoRepo;
-import hqr.o365.domain.OfficeUser;
-import hqr.o365.domain.TaInviteInfo;
-import hqr.o365.domain.TaOfficeInfo;
+import gaoya.o365.dao.TaInviteInfoRepo;
+import gaoya.o365.dao.TaOfficeInfoRepo;
+import gaoya.o365.domain.OfficeUser;
+import gaoya.o365.domain.TaInviteInfo;
+import gaoya.o365.domain.TaOfficeInfo;
 
 @Service
 public class CreateOfficeUserByInviteCd {

@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.util.Date;
 import java.util.Optional;
@@ -15,8 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import hqr.o365.dao.TaMasterCdRepo;
-import hqr.o365.domain.TaMasterCd;
+import gaoya.o365.dao.TaMasterCdRepo;
+import gaoya.o365.domain.TaMasterCd;
 
 @Service
 public class SendLoginMsgToWx {

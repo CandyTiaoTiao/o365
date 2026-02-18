@@ -1,4 +1,4 @@
-package hqr.o365.ctrl;
+package gaoya.o365.ctrl;
 
 import java.util.HashMap;
 
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hqr.o365.service.GetLicenseInfo;
+import gaoya.o365.service.GetLicenseInfo;
 
 @Controller
 public class LicenseTabCtrl {

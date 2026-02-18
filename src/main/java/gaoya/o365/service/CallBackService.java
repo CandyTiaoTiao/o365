@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.io.StringReader;
 import java.util.Optional;
@@ -17,8 +17,8 @@ import org.xml.sax.InputSource;
 import com.qq.weixin.mp.aes.AesException;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 
-import hqr.o365.dao.TaMasterCdRepo;
-import hqr.o365.domain.TaMasterCd;
+import gaoya.o365.dao.TaMasterCdRepo;
+import gaoya.o365.domain.TaMasterCd;
 
 @Service
 public class CallBackService {

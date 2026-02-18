@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -14,8 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import hqr.o365.dao.TaAppRptRepo;
-import hqr.o365.domain.TaAppRpt;
+import gaoya.o365.dao.TaAppRptRepo;
+import gaoya.o365.domain.TaAppRpt;
 
 @Service
 public class GetExchangeRpt {

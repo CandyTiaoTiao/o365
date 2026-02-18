@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.util.Optional;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import hqr.o365.dao.TaMasterCdRepo;
-import hqr.o365.domain.TaMasterCd;
+import gaoya.o365.dao.TaMasterCdRepo;
+import gaoya.o365.domain.TaMasterCd;
 
 @Service
 public class GetOfficeUserDefaultPwd {

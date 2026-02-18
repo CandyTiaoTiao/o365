@@ -1,4 +1,4 @@
-package hqr.o365.ctrl;
+package gaoya.o365.ctrl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import hqr.o365.domain.TaUser;
-import hqr.o365.service.GetGlobalInd;
-import hqr.o365.service.RegUser;
+import gaoya.o365.domain.TaUser;
+import gaoya.o365.service.GetGlobalInd;
+import gaoya.o365.service.RegUser;
 
 @Controller
 public class RegCtrl {

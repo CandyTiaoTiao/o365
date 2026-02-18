@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import hqr.o365.dao.TaInviteInfoRepo;
-import hqr.o365.domain.TaInviteInfo;
+import gaoya.o365.dao.TaInviteInfoRepo;
+import gaoya.o365.domain.TaInviteInfo;
 
 @Service
 public class ExportInvites {

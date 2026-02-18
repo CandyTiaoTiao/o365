@@ -1,4 +1,4 @@
-package hqr.o365.config;
+package gaoya.o365.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

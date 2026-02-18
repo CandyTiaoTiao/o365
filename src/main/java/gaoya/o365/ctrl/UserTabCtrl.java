@@ -1,4 +1,4 @@
-package hqr.o365.ctrl;
+package gaoya.o365.ctrl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import hqr.o365.domain.LicenseInfo;
-import hqr.o365.service.CreateOfficeUser;
-import hqr.o365.service.DeleteOfficeUser;
-import hqr.o365.service.DomainAction;
-import hqr.o365.service.GetDomainInfo;
-import hqr.o365.service.GetDomainInfo2;
-import hqr.o365.service.GetLicenseInfo;
-import hqr.o365.service.GetOfficeUser;
-import hqr.o365.service.GetOfficeUserByKeyWord;
-import hqr.o365.service.GetOfficeUserDefaultPwd;
-import hqr.o365.service.GetOfficeUserRole;
-import hqr.o365.service.MassCreateOfficeUser;
-import hqr.o365.service.UpdateOfficeUser;
-import hqr.o365.service.UpdateOfficeUserRole;
-import hqr.o365.service.ValidateCfConfig;
+import gaoya.o365.domain.LicenseInfo;
+import gaoya.o365.service.CreateOfficeUser;
+import gaoya.o365.service.DeleteOfficeUser;
+import gaoya.o365.service.DomainAction;
+import gaoya.o365.service.GetDomainInfo;
+import gaoya.o365.service.GetDomainInfo2;
+import gaoya.o365.service.GetLicenseInfo;
+import gaoya.o365.service.GetOfficeUser;
+import gaoya.o365.service.GetOfficeUserByKeyWord;
+import gaoya.o365.service.GetOfficeUserDefaultPwd;
+import gaoya.o365.service.GetOfficeUserRole;
+import gaoya.o365.service.MassCreateOfficeUser;
+import gaoya.o365.service.UpdateOfficeUser;
+import gaoya.o365.service.UpdateOfficeUserRole;
+import gaoya.o365.service.ValidateCfConfig;
 
 @Controller
 public class UserTabCtrl {

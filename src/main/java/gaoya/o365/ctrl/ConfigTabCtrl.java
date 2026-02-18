@@ -1,4 +1,4 @@
-package hqr.o365.ctrl;
+package gaoya.o365.ctrl;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,19 +20,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import hqr.o365.domain.LicenseInfo;
-import hqr.o365.domain.TaOfficeInfo;
-import hqr.o365.service.AddPassword;
-import hqr.o365.service.DeleteOfficeInfo;
-import hqr.o365.service.ExportAppInfo;
-import hqr.o365.service.GetDomainInfo;
-import hqr.o365.service.GetLicenseInfo;
-import hqr.o365.service.GetOfficeInfo;
-import hqr.o365.service.ImportAppInfo;
-import hqr.o365.service.SaveOfficeInfo;
-import hqr.o365.service.ScanAppStatusServiceForOne;
-import hqr.o365.service.SwitchConfig;
-import hqr.o365.service.ValidateAppInfo;
+import gaoya.o365.domain.LicenseInfo;
+import gaoya.o365.domain.TaOfficeInfo;
+import gaoya.o365.service.AddPassword;
+import gaoya.o365.service.DeleteOfficeInfo;
+import gaoya.o365.service.ExportAppInfo;
+import gaoya.o365.service.GetDomainInfo;
+import gaoya.o365.service.GetLicenseInfo;
+import gaoya.o365.service.GetOfficeInfo;
+import gaoya.o365.service.ImportAppInfo;
+import gaoya.o365.service.SaveOfficeInfo;
+import gaoya.o365.service.ScanAppStatusServiceForOne;
+import gaoya.o365.service.SwitchConfig;
+import gaoya.o365.service.ValidateAppInfo;
 
 @Controller
 public class ConfigTabCtrl {

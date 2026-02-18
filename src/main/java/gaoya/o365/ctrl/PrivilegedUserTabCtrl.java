@@ -1,4 +1,4 @@
-package hqr.o365.ctrl;
+package gaoya.o365.ctrl;
 
 import java.util.HashMap;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hqr.o365.service.GetOfficeRoleUser;
+import gaoya.o365.service.GetOfficeRoleUser;
 
 @Controller
 public class PrivilegedUserTabCtrl {

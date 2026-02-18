@@ -1,4 +1,4 @@
-package hqr.o365.ctrl;
+package gaoya.o365.ctrl;
 
 import java.io.File;
 import java.util.Date;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hqr.o365.service.GetAppRptService;
-import hqr.o365.service.GetExchangeRpt;
-import hqr.o365.service.GetOnedriveRpt;
-import hqr.o365.service.ScanAppStatusService;
+import gaoya.o365.service.GetAppRptService;
+import gaoya.o365.service.GetExchangeRpt;
+import gaoya.o365.service.GetOnedriveRpt;
+import gaoya.o365.service.ScanAppStatusService;
 
 @Controller
 public class AppRptTabCtrl {

@@ -1,4 +1,4 @@
-package hqr.o365.domain;
+package gaoya.o365.domain;
 
 public class LicenseInfo {
 	private String capabilityStatus ="";

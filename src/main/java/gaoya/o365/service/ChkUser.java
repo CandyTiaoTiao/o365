@@ -1,12 +1,12 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import hqr.o365.dao.TaUserRepo;
-import hqr.o365.domain.TaUser;
+import gaoya.o365.dao.TaUserRepo;
+import gaoya.o365.domain.TaUser;
 
 @Service
 public class ChkUser {

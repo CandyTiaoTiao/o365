@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,12 +14,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
-import hqr.o365.dao.TaInviteInfoRepo;
-import hqr.o365.dao.TaMasterCdRepo;
-import hqr.o365.dao.TaOfficeInfoRepo;
-import hqr.o365.domain.TaInviteInfo;
-import hqr.o365.domain.TaMasterCd;
-import hqr.o365.domain.TaOfficeInfo;
+import gaoya.o365.dao.TaInviteInfoRepo;
+import gaoya.o365.dao.TaMasterCdRepo;
+import gaoya.o365.dao.TaOfficeInfoRepo;
+import gaoya.o365.domain.TaInviteInfo;
+import gaoya.o365.domain.TaMasterCd;
+import gaoya.o365.domain.TaOfficeInfo;
 
 @Service
 public class MassCreateInviteCd {

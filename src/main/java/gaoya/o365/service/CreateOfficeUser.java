@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +16,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.alibaba.fastjson.JSON;
 
-import hqr.o365.dao.TaMasterCdRepo;
-import hqr.o365.dao.TaOfficeInfoRepo;
-import hqr.o365.domain.OfficeUser;
-import hqr.o365.domain.TaMasterCd;
-import hqr.o365.domain.TaOfficeInfo;
+import gaoya.o365.dao.TaMasterCdRepo;
+import gaoya.o365.dao.TaOfficeInfoRepo;
+import gaoya.o365.domain.OfficeUser;
+import gaoya.o365.domain.TaMasterCd;
+import gaoya.o365.domain.TaOfficeInfo;
 
 @Service
 public class CreateOfficeUser {

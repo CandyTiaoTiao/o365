@@ -1,4 +1,4 @@
-package hqr.o365.service;
+package gaoya.o365.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,10 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import hqr.o365.dao.TaMasterCdRepo;
-import hqr.o365.dao.TaOfficeInfoRepo;
-import hqr.o365.domain.TaMasterCd;
-import hqr.o365.domain.TaOfficeInfo;
+import gaoya.o365.dao.TaMasterCdRepo;
+import gaoya.o365.dao.TaOfficeInfoRepo;
+import gaoya.o365.domain.TaMasterCd;
+import gaoya.o365.domain.TaOfficeInfo;
 
 @Service
 public class UpdateOfficeUserRole {

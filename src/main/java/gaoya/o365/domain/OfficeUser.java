@@ -1,4 +1,4 @@
-package hqr.o365.domain;
+package gaoya.o365.domain;
 
 import java.util.ArrayList;
 import java.util.List;

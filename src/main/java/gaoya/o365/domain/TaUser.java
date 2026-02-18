@@ -1,4 +1,4 @@
-package hqr.o365.domain;
+package gaoya.o365.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package hqr.o365.dao;
+package gaoya.o365.dao;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import hqr.o365.domain.TaOfficeInfo;
+import gaoya.o365.domain.TaOfficeInfo;
 
 @Repository
 public interface TaOfficeInfoRepo extends JpaRepository<TaOfficeInfo, Integer> {
