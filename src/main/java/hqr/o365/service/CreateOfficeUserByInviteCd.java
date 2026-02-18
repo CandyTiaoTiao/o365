@@ -22,17 +22,6 @@ import hqr.o365.domain.OfficeUser;
 import hqr.o365.domain.TaInviteInfo;
 import hqr.o365.domain.TaOfficeInfo;
 
-/*
- * {
-	  "addLicenses": [
-	    {
-	      "disabledPlans": [ ],
-	      "skuId": "guid",
-	    }
-	  ],
-	  "removeLicenses": [ ]
-   }
- */
 @Service
 public class CreateOfficeUserByInviteCd {
 	private RestTemplate restTemplate = new RestTemplate();
@@ -64,23 +53,20 @@ public class CreateOfficeUserByInviteCd {
 			Date endDt = tiiDo.getEndDt();
 			
 			if(startDt!=null&&startDt.after(currentDt)) {
-				resultMsg = "此邀请码尚未生效";
-				return resultMsg;
+				return "此邀请码尚未生效";
 			}
 			
 			if(endDt!=null&&endDt.before(currentDt)) {
-				resultMsg = "此邀请码已过期";
-				return resultMsg;
+				return "此邀请码已过期";
 			}
 			
 			if("1".equals(tiiDo.getInviteStatus())){
-				//update the invite code to in-progress
+				// 状态改为：使用中
 				tiiDo.setInviteStatus("2");
 				tii.save(tiiDo);
 				
 				Optional<TaOfficeInfo> opt1 = repo.findById(tiiDo.getSeqNo());
 				if(opt1.isPresent()) {
-					//get info
 					TaOfficeInfo ta = opt1.get();
 					String accessToken = "";
 					if(vai.checkAndGet(ta.getTenantId(), ta.getAppId(), ta.getSecretId())) {
@@ -95,137 +81,123 @@ public class CreateOfficeUserByInviteCd {
 						ou.setDisplayName(displayName);
 						ou.getPasswordProfile().setPassword(password);
 						ou.getPasswordProfile().setForceChangePasswordNextSignIn(true);
-						//set usage location
-						ou.setUsageLocation(goi.getUsageLocation(accessToken));
-						String createUserJson = JSON.toJSONString(ou);
 						
-						//1. create user
+						// 1. 设置 UsageLocation (分配许可前提)
+						String loc = goi.getUsageLocation(accessToken);
+						ou.setUsageLocation(loc == null ? "CN" : loc);
+						
+						String createUserJson = JSON.toJSONString(ou);
 						String endpoint = "https://graph.microsoft.com/v1.0/users";
 						HttpHeaders headers = new HttpHeaders();
 						headers.set(HttpHeaders.USER_AGENT, ua);
 						headers.add("Authorization", "Bearer "+accessToken);
 						headers.setContentType(MediaType.APPLICATION_JSON);
 						HttpEntity<String> requestEntity = new HttpEntity<String>(createUserJson, headers);
-						try {
-							ResponseEntity<String> response= restTemplate.postForEntity(endpoint, requestEntity, String.class);
-							if(response.getStatusCodeValue()==201) {
-								response.getBody();
-								System.out.println( "成功创建用户："+ou.getUserPrincipalName());
-								Thread.sleep(500);
-							}
-							else {
-								tiiDo.setResult("创建用户出错 1");
-								tiiDo.setInviteStatus("4");
-								tii.save(tiiDo);
-								resultMsg = "创建用户出错";
-								return resultMsg;
-							}
-						}
-						catch (Exception e) {
-							if(e instanceof BadRequest) {
-								String responeBody = ((BadRequest) e).getResponseBodyAsString();
-								System.out.println(responeBody);
-								if(responeBody.indexOf("same value")>=0) {
-									tiiDo.setResult("此前缀已存在，请选择一个另外的前缀");
-									tiiDo.setInviteStatus("1");
-									tii.save(tiiDo);
-									resultMsg = "此前缀已存在，请选择一个另外的前缀";
-									return resultMsg;
-								}
-								else {
-									tiiDo.setResult("创建用户出错 2");
-									tiiDo.setInviteStatus("4");
-									tii.save(tiiDo);
-									resultMsg = "创建用户出错";
-									return resultMsg;
-								}
-							}
-							else {
-								tiiDo.setResult("创建用户出错 3");
-								tiiDo.setInviteStatus("4");
-								tii.save(tiiDo);
-								resultMsg = "创建用户出错";
-								return resultMsg;
-							}
-						}
 						
-						//2. assign license
-						String licenses = tiiDo.getLicenses();
-						if(licenses!=null&&!"".equals(licenses)) {
-							System.out.println("开始分配订阅："+licenses);
-							String acs [] = licenses.split(",");
-							for (String license : acs) {
-								String licenseJson = "{\"addLicenses\": [{\"disabledPlans\": [],\"skuId\": \""+license+"\",}],\"removeLicenses\": [ ]}";
+						try {
+							ResponseEntity<String> response = restTemplate.postForEntity(endpoint, requestEntity, String.class);
+							if(response.getStatusCodeValue()==201) {
+								System.out.println("成功创建用户：" + ou.getUserPrincipalName());
 								
-								endpoint = "https://graph.microsoft.com/v1.0/users/"+ou.getUserPrincipalName()+"/assignLicense";
+								// 2. 关键优化：等待 5 秒确保云端目录同步
+								Thread.sleep(5000);
 								
-								HttpHeaders headers2 = new HttpHeaders();
-								headers2.set(HttpHeaders.USER_AGENT, ua);
-								headers2.add("Authorization", "Bearer "+accessToken);
-								headers2.setContentType(MediaType.APPLICATION_JSON);
-								HttpEntity<String> requestEntity2 = new HttpEntity<String>(licenseJson, headers2);
-								
-								try {
-									ResponseEntity<String> response2= restTemplate.postForEntity(endpoint, requestEntity2, String.class);
-									if(response2.getStatusCodeValue()==200) {
-										response2.getBody();
+								// 分配许可逻辑
+								String licenses = tiiDo.getLicenses();
+								if(licenses!=null&&!"".equals(licenses)) {
+									String acs [] = licenses.split(",");
+									boolean allSuccess = true;
+									
+									for (String license : acs) {
+										String licenseJson = "{\"addLicenses\": [{\"disabledPlans\": [],\"skuId\": \""+license+"\",}],\"removeLicenses\": [ ]}";
+										String licenseEndpoint = "https://graph.microsoft.com/v1.0/users/"+ou.getUserPrincipalName()+"/assignLicense";
+										HttpEntity<String> requestEntity2 = new HttpEntity<String>(licenseJson, headers);
+										
+										// 3. 关键优化：3次重试机制
+										boolean currentLicenseFlag = false;
+										for(int i=1; i<=3; i++) {
+											try {
+												System.out.println("第" + i + "次尝试分配订阅：" + license);
+												ResponseEntity<String> response2 = restTemplate.postForEntity(licenseEndpoint, requestEntity2, String.class);
+												if(response2.getStatusCodeValue()==200) {
+													currentLicenseFlag = true;
+													break;
+												}
+											} catch (Exception ex) {
+												System.err.println("重试间隔等待...");
+												Thread.sleep(2000);
+											}
+										}
+										if(!currentLicenseFlag) allSuccess = false;
+									}
+									
+									if(allSuccess) {
 										tiiDo.setResult(ou.getUserPrincipalName()+"|"+password);
 										tiiDo.setInviteStatus("3");
 										tii.save(tiiDo);
 										resultMsg = "0|"+ou.getUserPrincipalName();
-									}
-									else {
-										tiiDo.setResult("分配订阅时出错 1");
+									} else {
+										tiiDo.setResult("部分或全部订阅分配失败");
 										tiiDo.setInviteStatus("4");
 										tii.save(tiiDo);
-										resultMsg = "分配订阅时出错";
-										return resultMsg;
+										resultMsg = "分配订阅出错";
 									}
-								}
-								catch (Exception e) {
-									tiiDo.setResult("分配订阅时出错 2");
-									tiiDo.setInviteStatus("4");
+								} else {
+									// 无需分配许可的情况
+									tiiDo.setResult(ou.getUserPrincipalName()+"|"+password);
+									tiiDo.setInviteStatus("3");
 									tii.save(tiiDo);
-									resultMsg = "分配订阅时出错";
-									return resultMsg;
+									resultMsg = "0|"+ou.getUserPrincipalName();
 								}
+							} else {
+								tiiDo.setInviteStatus("4");
+								tiiDo.setResult("创建用户未能获得201返回");
+								tii.save(tiiDo);
+								resultMsg = "创建用户出错";
+							}
+						} catch (Exception e) {
+							if(e instanceof BadRequest) {
+								String responeBody = ((BadRequest) e).getResponseBodyAsString();
+								if(responeBody.indexOf("same value")>=0) {
+									tiiDo.setResult("此前缀已存在");
+									tiiDo.setInviteStatus("1");
+									tii.save(tiiDo);
+									resultMsg = "此前缀已存在，请选择一个另外的前缀";
+								} else {
+									tiiDo.setInviteStatus("4");
+									tiiDo.setResult("Bad Request: " + responeBody);
+									tii.save(tiiDo);
+									resultMsg = "创建失败(BadRequest)";
+								}
+							} else {
+								tiiDo.setInviteStatus("4");
+								tiiDo.setResult("系统异常: " + e.toString());
+								tii.save(tiiDo);
+								resultMsg = "无法创建用户";
 							}
 						}
-						else {
-							tiiDo.setResult(ou.getUserPrincipalName()+"|"+password);
-							tiiDo.setInviteStatus("3");
-							tii.save(tiiDo);
-							resultMsg = "0|"+ou.getUserPrincipalName();
-						}
-					}
-					else {
-						tiiDo.setResult("无效的全局");
+					} else {
 						tiiDo.setInviteStatus("4");
+						tiiDo.setResult("获取Token失败");
 						tii.save(tiiDo);
 						resultMsg = "无效的全局";
 					}
-				}
-				else {
-					tiiDo.setResult("不存在的全局");
+				} else {
 					tiiDo.setInviteStatus("4");
+					tiiDo.setResult("全局信息已丢失");
 					tii.save(tiiDo);
 					resultMsg = "不存在的全局";
 				}
-			}
-			else if("2".equals(tiiDo.getInviteStatus())){
+			} else if("2".equals(tiiDo.getInviteStatus())){
 				resultMsg = "此邀请码正被使用中";
-			}
-			else if("3".equals(tiiDo.getInviteStatus())){
+			} else if("3".equals(tiiDo.getInviteStatus())){
 				resultMsg = "此邀请码已使用";
-			}
-			else if("4".equals(tiiDo.getInviteStatus())){
+			} else if("4".equals(tiiDo.getInviteStatus())){
 				resultMsg = "此邀请码使用出现错误";
-			}
-			else {
+			} else {
 				resultMsg = "无效的邀请码状态";
 			}
-		}
-		else {
+		} else {
 			resultMsg = "无效的邀请码";
 		}
 		
